@@ -56,18 +56,18 @@ install_kubespray () {
   mkdir -p "inventories/${DEPLOYMENT_NAME}"
 
   cp -r kubespray/inventory/sample/group_vars "inventories/${DEPLOYMENT_NAME}/group_vars"
-  CONFIG_FILE="inventories/${DEPLOYMENT_NAME}/inventory.cfg" python3 kubespray/contrib/inventory_builder/inventory.py "${NODES[@]}"
+  CONFIG_FILE="inventories/${DEPLOYMENT_NAME}/inventory.yaml" python3 kubespray/contrib/inventory_builder/inventory.py "${NODES[@]}"
 
   # Add configuration to inventory
   ansible-playbook k8s-configs.yaml --extra-vars "deployment_name=${DEPLOYMENT_NAME} k8s_nodes='${NODES[*]}' kubespray_remote_ssh_user='${REMOTE_SSH_USER}'"
 
   # Prepare Target Machines
   echo "Installing Prerequisites On Remote Machines"
-  ansible-playbook -i "inventories/${DEPLOYMENT_NAME}/inventory.cfg" k8s-requirements.yaml
+  ansible-playbook -i "inventories/${DEPLOYMENT_NAME}/inventory.yaml" k8s-requirements.yaml
 
   # Install Kubespray
   echo "Installing Kubespray"
-  ansible-playbook -i "inventories/${DEPLOYMENT_NAME}/inventory.cfg" -e docker_version='17.03' kubespray/cluster.yml -b -v
+  ansible-playbook -i "inventories/${DEPLOYMENT_NAME}/inventory.yaml" -e docker_version='17.03' kubespray/cluster.yml -b -v
 }
 
 #
