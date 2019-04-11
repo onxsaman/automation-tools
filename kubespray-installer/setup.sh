@@ -16,7 +16,7 @@
 
 #
 # Installs Kubespray on remote target machines.
-#
+# Updated kubespray repo
 
 set -e -o pipefail
 
