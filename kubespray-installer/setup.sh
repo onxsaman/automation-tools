@@ -29,7 +29,7 @@ install_kubespray () {
 
   # Download Kubespray
   echo "Downloading Kubespray"
-  git clone https://github.com/kubernetes-incubator/kubespray.git
+  git clone https://github.com/onxsaman/kubespray.git
   pushd kubespray
   git checkout "$KS_COMMIT"
   popd
